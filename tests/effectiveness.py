@@ -31,6 +31,10 @@ class EffectivenessTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             effectiveness.calculate_effectiveness(None, None)
 
+    def test_value_error_none_cohort(self):
+        with self.assertRaises(ValueError):
+            effectiveness.calculate_effectiveness(self.leg_zero, None)
+
     def test_value_error_no_cohort(self):
         with self.assertRaises(ValueError):
             effectiveness.calculate_effectiveness(self.leg_zero, self.cohort_zero)
