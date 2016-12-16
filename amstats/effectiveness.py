@@ -28,4 +28,25 @@ def calculate_effectiveness(legislator, cohort):
             bills_law (bills that were perfected and/or signed for all legs).
 
     """
+    # Safety checks.
+    if type(legislator) is not dict:
+        raise ValueError("Legislator information must be stored in a dict as specified.")
+    elif type(cohort) is not dict:
+        raise ValueError("Cohort information must be stored in a dict as specified.")
+    elif cohort['total'] < 1:
+        raise ValueError("Cohort must have a population.")
+
+    ratios = []
+
+    ratios.append(float(legislator["bills_introduced"])/float(cohort["bills_introduced"]))
+    ratios.append(float(legislator["actions_committee"]) / float(cohort["actions_committee"]))
+    ratios.append(float(legislator["beyond_committee"]) / float(cohort["beyond_committee"]))
+    ratios.append(float(legislator["bills_passed"]) / float(cohort["bills_passed"]))
+    ratios.append(float(legislator["bills_law"]) / float(cohort["bills_law"]))
+
+    answer = sum(ratios) * (cohort["total"]/5.0)
+
+    return float("{0:.4f}".format(answer))
+
+
     raise NotImplementedError('Legislator Effectiveness calculation is still a work in progress.')
